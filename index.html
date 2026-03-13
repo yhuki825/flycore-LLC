@@ -1,0 +1,1419 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="合同会社フライコアは、イベント企画・ECサイト制作・WEBコンサルティング・システム開発・営業代行・広告代理店事業を通じて、企業や個人事業主の持続的な成長を後押しするビジネスパートナーです。" />
+  <title>FLYCORE LLC | 合同会社フライコア</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ============================================================
+       CSS カスタムプロパティ（変数）
+    ============================================================ */
+    :root {
+      --color-indigo-400: #818cf8;
+      --color-indigo-500: #6366f1;
+      --color-indigo-600: #4f46e5;
+      --color-indigo-700: #4338ca;
+      --color-cyan-400:   #22d3ee;
+      --color-cyan-500:   #06b6d4;
+      --color-slate-50:   #f8fafc;
+      --color-slate-100:  #f1f5f9;
+      --color-slate-200:  #e2e8f0;
+      --color-slate-400:  #94a3b8;
+      --color-slate-500:  #64748b;
+      --color-slate-600:  #475569;
+      --color-slate-700:  #334155;
+      --color-slate-800:  #1e293b;
+      --color-slate-900:  #0f172a;
+      --color-white:      #ffffff;
+
+      --font-sans: 'Inter', 'Noto Sans JP', sans-serif;
+      --transition-base: 0.3s ease;
+      --radius-xl: 1.5rem;
+      --radius-2xl: 2rem;
+      --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.06);
+      --shadow-card-hover: 0 20px 60px rgba(0, 0, 0, 0.12);
+    }
+
+    /* ============================================================
+       リセット & ベーススタイル
+    ============================================================ */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--color-slate-50);
+      color: var(--color-slate-900);
+      overflow-x: hidden;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    /* ============================================================
+       ユーティリティ
+    ============================================================ */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    .section-label {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-indigo-500);
+      background: rgba(99, 102, 241, 0.08);
+      border: 1px solid rgba(99, 102, 241, 0.2);
+      padding: 0.35rem 1rem;
+      border-radius: 999px;
+      margin-bottom: 1.25rem;
+    }
+
+    /* フェードインアニメーション（JS で付与） */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ============================================================
+       ナビゲーション
+    ============================================================ */
+    #navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 100;
+      padding: 1.25rem 0;
+      transition: background var(--transition-base), box-shadow var(--transition-base), padding var(--transition-base);
+    }
+
+    #navbar.scrolled {
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 1px 24px rgba(0, 0, 0, 0.07);
+      padding: 0.75rem 0;
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    /* ロゴ */
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .nav-logo-icon {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, var(--color-indigo-600), var(--color-indigo-500));
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(79, 70, 229, 0.35);
+    }
+
+    .nav-logo-icon span {
+      color: white;
+      font-weight: 900;
+      font-size: 1.25rem;
+      line-height: 1;
+    }
+
+    .nav-logo-text {
+      font-size: 1.1rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: white;
+      transition: color var(--transition-base);
+    }
+
+    .nav-logo-text .llc {
+      font-size: 0.7rem;
+      font-weight: 500;
+      opacity: 0.6;
+      margin-left: 0.25rem;
+    }
+
+    #navbar.scrolled .nav-logo-text {
+      color: var(--color-slate-900);
+    }
+
+    /* デスクトップメニュー */
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.8);
+      transition: color var(--transition-base);
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--color-indigo-400);
+      border-radius: 2px;
+      transition: width var(--transition-base);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    #navbar.scrolled .nav-links a {
+      color: var(--color-slate-600);
+    }
+
+    .nav-links a:hover {
+      color: var(--color-indigo-500);
+    }
+
+    /* ハンバーガーボタン */
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+
+    .nav-hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: white;
+      border-radius: 2px;
+      transition: all var(--transition-base);
+    }
+
+      #navbar.scrolled .nav-hamburger span {
+      background: var(--color-slate-900);
+    }
+
+    /* ナビロゴテキスト: スクロール前は白 */
+    .nav-logo-text {
+      color: white;
+    }
+
+    .nav-hamburger.open span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+
+    .nav-hamburger.open span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .nav-hamburger.open span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+
+    /* モバイルメニュー */
+    #mobile-menu {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: white;
+      z-index: 90;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2.5rem;
+    }
+
+    #mobile-menu.open {
+      display: flex;
+    }
+
+    #mobile-menu a {
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-slate-900);
+      transition: color var(--transition-base);
+    }
+
+    #mobile-menu a:hover {
+      color: var(--color-indigo-600);
+    }
+
+    /* ============================================================
+       ヒーローセクション
+    ============================================================ */
+    #hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding-top: 5rem;
+      overflow: hidden;
+      background: var(--color-slate-900);
+    }
+
+    /* 背景グロー */
+    .hero-glow {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .hero-glow-1 {
+      position: absolute;
+      top: 20%;
+      left: -8%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(99, 102, 241, 0.45) 0%, transparent 70%);
+      border-radius: 50%;
+      animation: pulse-glow 4s ease-in-out infinite;
+    }
+
+    .hero-glow-2 {
+      position: absolute;
+      bottom: 15%;
+      right: -8%;
+      width: 450px;
+      height: 450px;
+      background: radial-gradient(circle, rgba(6, 182, 212, 0.35) 0%, transparent 70%);
+      border-radius: 50%;
+      animation: pulse-glow 4s ease-in-out infinite 1.5s;
+    }
+
+    .hero-glow-3 {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(79, 70, 229, 0.12) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    @keyframes pulse-glow {
+      0%, 100% { opacity: 0.6; transform: scale(1); }
+      50%       { opacity: 1;   transform: scale(1.08); }
+    }
+
+    /* グリッドライン装飾 */
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      z-index: 0;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-indigo-300);
+      background: rgba(99, 102, 241, 0.12);
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      padding: 0.4rem 1rem;
+      border-radius: 999px;
+      margin-bottom: 1.75rem;
+    }
+
+    .hero-badge::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: var(--color-indigo-400);
+      border-radius: 50%;
+      animation: blink 2s ease-in-out infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.3; }
+    }
+
+    .hero-title {
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      font-weight: 900;
+      color: white;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-title .gradient-text {
+      background: linear-gradient(135deg, var(--color-indigo-400) 0%, var(--color-cyan-400) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-desc {
+      font-size: 1.05rem;
+      color: rgba(255, 255, 255, 0.65);
+      max-width: 440px;
+      line-height: 1.85;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 1rem 2rem;
+      background: linear-gradient(135deg, var(--color-indigo-600), var(--color-indigo-500));
+      color: white;
+      font-weight: 700;
+      font-size: 0.95rem;
+      border-radius: 999px;
+      box-shadow: 0 8px 32px rgba(79, 70, 229, 0.4);
+      transition: transform var(--transition-base), box-shadow var(--transition-base);
+    }
+
+    .hero-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(79, 70, 229, 0.55);
+    }
+
+    .hero-cta svg {
+      width: 18px;
+      height: 18px;
+      transition: transform var(--transition-base);
+    }
+
+    .hero-cta:hover svg {
+      transform: translateX(3px);
+    }
+
+    /* ヒーロー右側画像 */
+    .hero-image-wrap {
+      position: relative;
+    }
+
+    .hero-image-frame {
+      position: relative;
+      border-radius: var(--radius-2xl);
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.04);
+      aspect-ratio: 1 / 1;
+    }
+
+    .hero-image-frame::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.2) 0%, transparent 60%);
+      z-index: 1;
+    }
+
+    .hero-image-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.8;
+      transition: opacity var(--transition-base);
+    }
+
+    .hero-image-frame:hover img {
+      opacity: 1;
+    }
+
+    /* 浮遊カード装飾 */
+    .hero-float-card {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 1rem;
+      padding: 0.75rem 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      animation: float 4s ease-in-out infinite;
+    }
+
+    .hero-float-card-1 {
+      bottom: 12%;
+      left: -8%;
+      animation-delay: 0s;
+    }
+
+    .hero-float-card-2 {
+      top: 10%;
+      right: -6%;
+      animation-delay: 1.5s;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-8px); }
+    }
+
+    .float-card-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--color-indigo-400);
+    }
+
+    .float-card-dot.cyan {
+      background: var(--color-cyan-400);
+    }
+
+    .float-card-text {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.85);
+      white-space: nowrap;
+    }
+
+    /* スクロールインジケーター */
+    .hero-scroll {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      color: rgba(255, 255, 255, 0.4);
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    .hero-scroll-line {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.4), transparent);
+      animation: scroll-line 2s ease-in-out infinite;
+    }
+
+    @keyframes scroll-line {
+      0%   { transform: scaleY(0); transform-origin: top; }
+      50%  { transform: scaleY(1); transform-origin: top; }
+      51%  { transform: scaleY(1); transform-origin: bottom; }
+      100% { transform: scaleY(0); transform-origin: bottom; }
+    }
+
+    /* ============================================================
+       ミッションセクション
+    ============================================================ */
+    #about {
+      padding: 7rem 0;
+      background: white;
+    }
+
+    .about-inner {
+      text-align: center;
+    }
+
+    .section-title {
+      font-size: clamp(1.75rem, 3vw, 2.5rem);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      margin-bottom: 1rem;
+      color: var(--color-slate-900);
+    }
+
+    .section-divider {
+      width: 48px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--color-indigo-600), var(--color-cyan-500));
+      border-radius: 3px;
+      margin: 0.75rem auto 3rem;
+    }
+
+    .about-text {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      color: var(--color-slate-600);
+      line-height: 2;
+      font-weight: 300;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    .about-text strong {
+      color: var(--color-indigo-600);
+      font-weight: 700;
+    }
+
+    /* ============================================================
+       サービスセクション
+    ============================================================ */
+    #services {
+      padding: 7rem 0;
+      background: var(--color-slate-50);
+    }
+
+    .services-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 4rem;
+      gap: 2rem;
+    }
+
+    .services-header-left {
+      max-width: 520px;
+    }
+
+    .services-header-left .section-title {
+      text-align: left;
+    }
+
+    .services-subtitle {
+      font-size: 0.95rem;
+      color: var(--color-slate-500);
+      line-height: 1.8;
+      margin-top: 0.75rem;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    /* サービスカード */
+    .service-card {
+      background: white;
+      padding: 2.25rem;
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--color-slate-100);
+      box-shadow: var(--shadow-card);
+      transition: box-shadow var(--transition-base), transform var(--transition-base);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--color-indigo-600), var(--color-cyan-500));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform var(--transition-base);
+    }
+
+    .service-card:hover {
+      box-shadow: var(--shadow-card-hover);
+      transform: translateY(-4px);
+    }
+
+    .service-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .service-icon {
+      width: 60px;
+      height: 60px;
+      background: rgba(99, 102, 241, 0.08);
+      color: var(--color-indigo-600);
+      border-radius: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+      transition: background var(--transition-base), color var(--transition-base);
+    }
+
+    .service-icon svg {
+      width: 28px;
+      height: 28px;
+    }
+
+    .service-card:hover .service-icon {
+      background: linear-gradient(135deg, var(--color-indigo-600), var(--color-indigo-500));
+      color: white;
+    }
+
+    .service-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      color: var(--color-slate-900);
+    }
+
+    .service-desc {
+      font-size: 0.9rem;
+      color: var(--color-slate-500);
+      line-height: 1.85;
+    }
+
+    /* ============================================================
+       会社概要セクション
+    ============================================================ */
+    #company {
+      padding: 7rem 0;
+      background: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #company::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      right: 0;
+      width: 35%;
+      height: 70%;
+      background: var(--color-slate-50);
+      transform: translateY(-50%) skewX(-8deg);
+      z-index: 0;
+    }
+
+    .company-inner {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+
+    .company-table {
+      margin-top: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .company-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.25rem;
+      padding: 1.5rem 0;
+      border-bottom: 1px solid var(--color-slate-100);
+    }
+
+    .company-row:last-child {
+      border-bottom: none;
+    }
+
+    .company-row-icon {
+      flex-shrink: 0;
+      width: 44px;
+      height: 44px;
+      background: rgba(99, 102, 241, 0.07);
+      color: var(--color-indigo-600);
+      border-radius: 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .company-row-icon svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .company-row-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--color-slate-400);
+      margin-bottom: 0.3rem;
+    }
+
+    .company-row-value {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--color-slate-900);
+      line-height: 1.5;
+    }
+
+    /* 地図 */
+    .map-wrap {
+      position: relative;
+    }
+
+    .map-frame {
+      border-radius: var(--radius-2xl);
+      overflow: hidden;
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.12);
+      aspect-ratio: 4 / 3;
+      filter: grayscale(0.3);
+      transition: filter 0.7s ease;
+    }
+
+    .map-frame:hover {
+      filter: grayscale(0);
+    }
+
+    .map-frame iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+    }
+
+    .map-deco {
+      position: absolute;
+      bottom: -1.5rem;
+      right: -1.5rem;
+      width: 100px;
+      height: 100px;
+      background: linear-gradient(135deg, var(--color-indigo-600), var(--color-indigo-500));
+      border-radius: 1.5rem;
+      z-index: -1;
+      animation: float 5s ease-in-out infinite;
+    }
+
+    .map-deco-2 {
+      position: absolute;
+      top: -1rem;
+      left: -1rem;
+      width: 60px;
+      height: 60px;
+      background: rgba(6, 182, 212, 0.2);
+      border: 2px solid rgba(6, 182, 212, 0.4);
+      border-radius: 1rem;
+      z-index: -1;
+      animation: float 5s ease-in-out infinite 1s;
+    }
+
+    /* ============================================================
+       フッター
+    ============================================================ */
+    footer {
+      background: var(--color-slate-900);
+      color: white;
+      padding: 4rem 0 2rem;
+    }
+
+    .footer-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 2rem;
+      padding-bottom: 2.5rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      flex-wrap: wrap;
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .footer-logo-icon {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, var(--color-indigo-600), var(--color-indigo-500));
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .footer-logo-icon span {
+      color: white;
+      font-weight: 900;
+      font-size: 1.1rem;
+    }
+
+    .footer-logo-text {
+      font-size: 1rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .footer-logo-text .llc {
+      font-size: 0.65rem;
+      font-weight: 400;
+      opacity: 0.45;
+      margin-left: 0.2rem;
+    }
+
+    .footer-nav {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .footer-nav a {
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.5);
+      transition: color var(--transition-base);
+    }
+
+    .footer-nav a:hover {
+      color: white;
+    }
+
+    .footer-bottom {
+      padding-top: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-copy {
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.3);
+    }
+
+    .footer-tagline {
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.3);
+      font-style: italic;
+    }
+
+    /* ============================================================
+       レスポンシブ
+    ============================================================ */
+    @media (max-width: 1024px) {
+      .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+
+      .nav-hamburger {
+        display: flex;
+      }
+
+      .hero-inner {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .hero-image-wrap {
+        display: none;
+      }
+
+      .hero-desc {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .services-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .services-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .company-inner {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+
+      #company::after {
+        display: none;
+      }
+
+      .footer-top {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .footer-nav {
+        flex-wrap: wrap;
+        gap: 1.5rem;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-title {
+        font-size: 2.25rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+       ナビゲーション
+  ============================================================ -->
+  <nav id="navbar">
+    <div class="container nav-inner">
+      <!-- ロゴ -->
+      <a href="#" class="nav-logo">
+        <div class="nav-logo-icon">
+          <span>F</span>
+        </div>
+        <span class="nav-logo-text">FLYCORE<span class="llc">LLC</span></span>
+      </a>
+
+      <!-- デスクトップメニュー -->
+      <ul class="nav-links">
+        <li><a href="#about">ABOUT</a></li>
+        <li><a href="#services">SERVICES</a></li>
+        <li><a href="#company">COMPANY</a></li>
+      </ul>
+
+      <!-- ハンバーガーボタン -->
+      <button class="nav-hamburger" id="hamburger-btn" aria-label="メニューを開く">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- モバイルメニュー -->
+  <div id="mobile-menu">
+    <a href="#about"    class="mobile-link">ABOUT</a>
+    <a href="#services" class="mobile-link">SERVICES</a>
+    <a href="#company"  class="mobile-link">COMPANY</a>
+  </div>
+
+  <!-- ============================================================
+       ヒーローセクション
+  ============================================================ -->
+  <section id="hero">
+    <!-- 背景装飾 -->
+    <div class="hero-glow">
+      <div class="hero-glow-1"></div>
+      <div class="hero-glow-2"></div>
+      <div class="hero-glow-3"></div>
+    </div>
+    <div class="hero-grid"></div>
+
+    <div class="container hero-inner">
+      <!-- テキストコンテンツ -->
+      <div>
+        <div class="hero-badge">Fly to the Core</div>
+        <h1 class="hero-title">
+          ビジネスの<span class="gradient-text">核（Core）</span>から<br />
+          さらなる高みへ。
+        </h1>
+        <p class="hero-desc">
+          合同会社フライコアは、多角的な事業展開と最先端のテクノロジーを融合させ、企業や個人事業主の持続的な成長を後押しするビジネスパートナーです。
+        </p>
+        <a href="#services" class="hero-cta">
+          事業内容を見る
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </a>
+      </div>
+
+      <!-- 画像 -->
+      <div class="hero-image-wrap">
+        <div class="hero-image-frame">
+          <img
+            src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=800"
+            alt="チームで働く様子"
+            loading="eager"
+          />
+        </div>
+
+        <!-- 浮遊カード -->
+        <div class="hero-float-card hero-float-card-1">
+          <div class="float-card-dot"></div>
+          <span class="float-card-text">6つの専門事業</span>
+        </div>
+        <div class="hero-float-card hero-float-card-2">
+          <div class="float-card-dot cyan"></div>
+          <span class="float-card-text">ビジネス成長支援</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- スクロールインジケーター -->
+    <div class="hero-scroll">
+      <div class="hero-scroll-line"></div>
+      <span>Scroll</span>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       ミッションセクション
+  ============================================================ -->
+  <section id="about">
+    <div class="container">
+      <div class="about-inner fade-in">
+        <span class="section-label">Our Mission</span>
+        <h2 class="section-title">私たちのミッション</h2>
+        <div class="section-divider"></div>
+        <p class="about-text">
+          「<strong>Fly（飛躍）</strong>」と「<strong>Core（本質・核）</strong>」を軸に、お客様のビジネスのポテンシャルを最大限に引き出すこと。それが私たちの役割です。イベントからWEB、営業支援まで、一貫したクオリティでサポートいたします。
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       サービスセクション
+  ============================================================ -->
+  <section id="services">
+    <div class="container">
+      <div class="services-header fade-in">
+        <div class="services-header-left">
+          <span class="section-label">Our Services</span>
+          <h2 class="section-title">事業内容</h2>
+          <p class="services-subtitle">
+            専門領域に特化した各分野のプロフェッショナルが、多角的な視点から貴社のビジネスを加速させる多彩なサービスを提供しています。
+          </p>
+        </div>
+      </div>
+
+      <div class="services-grid">
+
+        <!-- カード 1: イベント企画 -->
+        <div class="service-card fade-in">
+          <div class="service-icon">
+            <!-- Calendar icon -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="16" y1="2" x2="16" y2="6"></line>
+              <line x1="8" y1="2" x2="8" y2="6"></line>
+              <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+          </div>
+          <h3 class="service-title">イベント企画・運営・管理</h3>
+          <p class="service-desc">リアルからオンラインまで、参加者の心に深く残る体験をトータルプロデュースします。</p>
+        </div>
+
+        <!-- カード 2: ECサイト -->
+        <div class="service-card fade-in">
+          <div class="service-icon">
+            <!-- ShoppingCart icon -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="9" cy="21" r="1"></circle>
+              <circle cx="20" cy="21" r="1"></circle>
+              <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+            </svg>
+          </div>
+          <h3 class="service-title">ECサイト制作・販売支援</h3>
+          <p class="service-desc">「売れる」ための動線設計から、持続的な売上向上を目指すWEBサイトを構築します。</p>
+        </div>
+
+        <!-- カード 3: WEBコンサル -->
+        <div class="service-card fade-in">
+          <div class="service-icon">
+            <!-- Monitor icon -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+              <line x1="8" y1="21" x2="16" y2="21"></line>
+              <line x1="12" y1="17" x2="12" y2="21"></line>
+            </svg>
+          </div>
+          <h3 class="service-title">WEBコンサルティング</h3>
+          <p class="service-desc">データに基づいた分析で、お客様のビジネス課題を解決するための最適な戦略を提案します。</p>
+        </div>
+
+        <!-- カード 4: システム開発 -->
+        <div class="service-card fade-in">
+          <div class="service-icon">
+            <!-- CreditCard icon -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+              <line x1="1" y1="10" x2="23" y2="10"></line>
+            </svg>
+          </div>
+          <h3 class="service-title">システム開発・決済代行</h3>
+          <p class="service-desc">利便性と安全性を両立した、収納・集金・決済に関する独自のシステム構築をサポートします。</p>
+        </div>
+
+        <!-- カード 5: 営業代行 -->
+        <div class="service-card fade-in">
+          <div class="service-icon">
+            <!-- TrendingUp icon -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+              <polyline points="17 6 23 6 23 12"></polyline>
+            </svg>
+          </div>
+          <h3 class="service-title">営業代行業務</h3>
+          <p class="service-desc">確実な成果を追求するプロフェッショナルなアプローチで、貴社の販路拡大に貢献します。</p>
+        </div>
+
+        <!-- カード 6: 広告代理店 -->
+        <div class="service-card fade-in">
+          <div class="service-icon">
+            <!-- Megaphone icon -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 11l19-9-9 19-2-8-8-2z"></path>
+            </svg>
+          </div>
+          <h3 class="service-title">広告代理店事業</h3>
+          <p class="service-desc">ターゲットに響くメディア選定とクリエイティブで、ブランド認知と集客を加速させます。</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       会社概要セクション
+  ============================================================ -->
+  <section id="company">
+    <div class="container company-inner">
+
+      <!-- 左: テキスト情報 -->
+      <div class="fade-in">
+        <span class="section-label">Company Info</span>
+        <h2 class="section-title">会社概要</h2>
+
+        <div class="company-table">
+
+          <div class="company-row">
+            <div class="company-row-icon">
+              <!-- Building icon -->
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="7" width="20" height="14" rx="2"></rect>
+                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+              </svg>
+            </div>
+            <div>
+              <p class="company-row-label">社名</p>
+              <p class="company-row-value">合同会社フライコア</p>
+            </div>
+          </div>
+
+          <div class="company-row">
+            <div class="company-row-icon">
+              <!-- User icon -->
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+              </svg>
+            </div>
+            <div>
+              <p class="company-row-label">代表社員</p>
+              <p class="company-row-value">栁橋 雅也</p>
+            </div>
+          </div>
+
+          <div class="company-row">
+            <div class="company-row-icon">
+              <!-- MapPin icon -->
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+              </svg>
+            </div>
+            <div>
+              <p class="company-row-label">所在地</p>
+              <p class="company-row-value">東京都中野区上高田4-46-11</p>
+            </div>
+          </div>
+
+          <div class="company-row">
+            <div class="company-row-icon">
+              <!-- Coins icon -->
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="8" cy="8" r="6"></circle>
+                <path d="M18.09 10.37A6 6 0 1 1 10.34 18"></path>
+                <path d="M7 6h1v4"></path>
+                <path d="m16.71 13.88.7.71-2.82 2.82"></path>
+              </svg>
+            </div>
+            <div>
+              <p class="company-row-label">資本金</p>
+              <p class="company-row-value">2,000,000円</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 右: 地図 -->
+      <div class="map-wrap fade-in">
+        <div class="map-frame">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3239.8164049870535!2d139.6644!3d35.7112!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6018ed9381734685%3A0xc3c544dfa8f1589!2z44CSMTY0LTAwMDIg5p2x5Lqs6YO95Lit6YeO5Yy65LiK6auY55Sw77yU5LiB55uu77yU77yW4oiS77yR77yR!5e0!3m2!1sja!2sjp!4v1715000000000!5m2!1sja!2sjp"
+            title="合同会社フライコア 所在地"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>
+        </div>
+        <div class="map-deco"></div>
+        <div class="map-deco-2"></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       フッター
+  ============================================================ -->
+  <footer>
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-logo">
+          <div class="footer-logo-icon">
+            <span>F</span>
+          </div>
+          <span class="footer-logo-text">FLYCORE<span class="llc">LLC</span></span>
+        </div>
+
+        <ul class="footer-nav">
+          <li><a href="#about">ミッション</a></li>
+          <li><a href="#services">事業内容</a></li>
+          <li><a href="#company">会社概要</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2025 Flycore LLC. All rights reserved.</p>
+        <p class="footer-tagline">FLYCORE — Accelerating Business Through the Core.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============================================================
+       JavaScript
+  ============================================================ -->
+  <script>
+    // -------------------------------------------------------
+    // ナビゲーション: スクロールで背景変更
+    // -------------------------------------------------------
+    const navbar = document.getElementById('navbar');
+
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    }, { passive: true });
+
+    // -------------------------------------------------------
+    // ハンバーガーメニュー
+    // -------------------------------------------------------
+    const hamburgerBtn = document.getElementById('hamburger-btn');
+    const mobileMenu   = document.getElementById('mobile-menu');
+    const mobileLinks  = document.querySelectorAll('.mobile-link');
+
+    hamburgerBtn.addEventListener('click', () => {
+      const isOpen = mobileMenu.classList.toggle('open');
+      hamburgerBtn.classList.toggle('open', isOpen);
+      hamburgerBtn.setAttribute('aria-label', isOpen ? 'メニューを閉じる' : 'メニューを開く');
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+    });
+
+    mobileLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.remove('open');
+        hamburgerBtn.classList.remove('open');
+        hamburgerBtn.setAttribute('aria-label', 'メニューを開く');
+        document.body.style.overflow = '';
+      });
+    });
+
+    // -------------------------------------------------------
+    // スクロールアニメーション (Intersection Observer)
+    // -------------------------------------------------------
+    const fadeElements = document.querySelectorAll('.fade-in');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          // カードは少しずつ遅延させる
+          const delay = entry.target.closest('.services-grid')
+            ? Array.from(fadeElements).indexOf(entry.target) * 80
+            : 0;
+          setTimeout(() => {
+            entry.target.classList.add('visible');
+          }, delay);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.12,
+      rootMargin: '0px 0px -40px 0px'
+    });
+
+    fadeElements.forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
